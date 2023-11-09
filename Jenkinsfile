@@ -1,10 +1,5 @@
 pipeline {
     agent any
-
-    parameters {
-        string(name: 'BRANCH_NAME', description: 'Enter the Git branch name to clone', defaultValue: 'test')
-    }
-
     stages {
         stage('Scan Git Repository for Branches') {
             steps {
@@ -20,29 +15,6 @@ pipeline {
                         parameters: [choice(name: 'BRANCH_NAME', choices: branches, description: 'Choose the branch to build')]
                     )
                 }
-            }
-        }
-
-        stage('Cleanup Workspace') {
-            steps {
-                deleteDir()
-            }
-        }
-
-        stage('Clone Git Repository') {
-            steps {
-                script {
-                    def gitRepoUrl = 'https://github.com/mohitverma7862/kubernetes-the-hard-way'
-                    def branchName = params.BRANCH_NAME
-
-                    checkout([$class: 'GitSCM', branches: [[name: "*/$branchName"]], userRemoteConfigs: [[url: gitRepoUrl]]])
-                }
-            }
-        }
-
-        stage('Build and Deploy') {
-            steps {
-                sh 'echo "Build and deploy code from branch: $BRANCH_NAME"'
             }
         }
     }
