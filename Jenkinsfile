@@ -1,13 +1,14 @@
 pipeline {
-    agent any
-  parameters {
-        string(name: 'BRANCH_NAME', description: 'Enter the branch name', defaultValue: 'main')
-    }
-    stages ('Clone The Repo') {
-        stage {
-            steps {
-             checkout([$class: 'GitSCM', branches: [[name: "*/${params.BRANCH_NAME}"]]])
-            }
+    properties([
+        parameters([
+            string(name: 'SERVER_NAME', description: 'Server Name or IP', defaultValue: 'your-server-ip'),
+            string(name: 'BRANCH_NAME', description: 'Git Branch Name', defaultValue: 'master')
+        ])
+    ])
+
+    node {
+        stage('Checkout') {
+            checkout([$class: 'GitSCM', branches: [[name: "*/${params.BRANCH_NAME}"]]])
         }
     }
 }
