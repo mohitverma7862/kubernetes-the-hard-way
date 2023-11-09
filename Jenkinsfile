@@ -5,7 +5,9 @@ pipeline {
     }
     stages ('Clone The Repo') {
         stage {
+            steps {
              checkout([$class: 'GitSCM', branches: [[name: "*/${params.BRANCH_NAME}"]]])
+            }
         }
     }
 }
