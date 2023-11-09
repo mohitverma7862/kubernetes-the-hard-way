@@ -7,7 +7,9 @@ pipeline{
     ])
     stages {
         stage ('Clone The Code Form $BRANCH_NAME') {
-            checkout([$class: 'GitSCM', branches: [[name: "*/${params.BRANCH_NAME}"]]])
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: "*/${params.BRANCH_NAME}"]]])
+            }
         }
     }
 }
