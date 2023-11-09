@@ -1,10 +1,5 @@
 pipeline {
     agent any
-
-    parameters {
-        string(name: 'BRANCH_NAME', description: 'Enter the Git branch name to clone', defaultValue: 'dev')
-    }
-
     stages {
         stage('Scan Git Repository for Branches') {
             steps {
@@ -20,6 +15,11 @@ pipeline {
                         parameters: [choice(name: 'BRANCH_NAME', choices: branches, description: 'Choose the branch to build')]
                     )
                 }
+            }
+        }
+        stage('Cleanup Workspace') {
+            steps {
+                deleteDir()
             }
         }
 
