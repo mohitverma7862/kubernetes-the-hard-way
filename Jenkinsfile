@@ -1,6 +1,6 @@
 pipeline{
     agent any
-    properties([
+    options([
         parameters([
             string(name: 'BRANCH_NAME', description: 'Git Branch Name', defaultValue: 'master')
         ])
