@@ -28,9 +28,7 @@ pipeline {
         }
         stage ('Clean The WS') {
             steps {
-                ws {
-                    sh 'git clean -fdx'
-                }
+                deleteDir()
             }
         }
     }
