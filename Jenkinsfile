@@ -20,9 +20,16 @@ pipeline {
         stage('Checkout to the New Branch') {
             steps {
                 script {
-                    def branch = sh(script: "git branch")
-                    sh 'echo current branch is ${branch}'
+                    def branch = sh(script: "git branch", returnStdout: true).trim()
+                    echo "Current branch is ${branch}"
                     sh 'git checkout ${BRANCH_NAME}'
+                }
+            }
+        }
+        satge ('Clean The WS') {
+            steps {
+                ws {
+                    sh 'git clean -fdx'
                 }
             }
         }
