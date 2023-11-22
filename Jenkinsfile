@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'Jenkins_Agent'
+    }
     stages {
         stage('Scan Git Repository for Branches') {
             steps {
